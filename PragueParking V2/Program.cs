@@ -23,7 +23,8 @@ namespace PragueParking
                 AnsiConsole.Clear();
                 var val = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
-                        .Title("[bold]Prague Parking [/] – Välj ett alternativ:")
+                        .Title("[bold]Välkommen till Prague Parking\nVälj ett av följande alternativ:[/]")
+
                         .AddChoices(new[]
                         { "1. Visa karta",
                           "2. Parkera fordon",
@@ -52,8 +53,8 @@ namespace PragueParking
                         VäntaOchRensa();
                         break;
                     case "5. Sök fordon":
-                        VäntaOchRensa();
                         UISök(garage);
+                        VäntaOchRensa();
                         break;
                     case "6. Avsluta":
                         return;
@@ -77,9 +78,25 @@ namespace PragueParking
             return g;
         }
 
-
-        public static void UIVisaKarta(Parkeringshus garage, int kolumner = 10)
+        static string HämtaFärg(ParkeringsPlats plats)
         {
+            int count = plats.ParkeradeFordon.Count;
+
+            if (count == 0)
+                return "green";
+
+            if (count == 1 && plats.ParkeradeFordon.All(f => f is MC))
+                return "yellow";
+
+            return "red";
+        }
+        public static void UIVisaKarta(Parkeringshus garage, int kolumner = 10)
+
+        
+        {
+
+            AnsiConsole.Clear();
+
             var table = new Table().Centered();
             table.Title("Karta över P-huset");
             table.Border(TableBorder.Rounded);
@@ -92,27 +109,22 @@ namespace PragueParking
             for (int i = 0; i < platser.Count; i += kolumner)
             {
                 var row = new List<IRenderable>();
-                foreach (var p in platser.Skip(i).Take(kolumner))
+
+                foreach (var plats in platser.Skip(i).Take(kolumner))
                 {
+                    string färg = HämtaFärg(plats);
+                    string cellText = plats.ParkeradeFordon.Count == 0 ? $"{plats.platsNummer:D3}\n[ ]" : $"{plats.platsNummer:D3}\n[{string.Join(",", plats.ParkeradeFordon.Select(fordon => fordon.FordonsTyp))}]";
 
-                    // Färglogik: tom=grå, delvis (1 MC på tom plats)=gul, full (1 bil eller 2 MC)=röd
-                    var count = p.ParkeradeFordon.Count;
-                    string färg = count == 0 ? "grey" : (count == 1 && p.ParkeradeFordon.All(f => f is MC) ? "yellow" : "red");
-
-                    var text = $"{p.platsNummer:D3} [{string.Join(",", p.ParkeradeFordon.Select(f => f.FordonsTyp))}]";
-                    if (count == 0) text = $"{p.platsNummer:D3} [ ]";
-
-                    //row.Add(new Markup($"[{färg}]{text}[/]"));
+                    row.Add(new Markup($"[{färg}]{Markup.Escape(cellText)}[/]").Centered());
                 }
                 table.AddRow(row.ToArray());
 
-
             }
 
-            AnsiConsole.Clear();
             AnsiConsole.Write(table);
 
             var lediga = platser.Count(p => p.ParkeradeFordon.Count == 0 || (p.ParkeradeFordon.All(f => f is MC) && p.ParkeradeFordon.Count == 1));
+            
             AnsiConsole.WriteLine();
             AnsiConsole.Write(new FigletText($"Ledigt: {lediga}").Centered().Color(Spectre.Console.Color.Green));
             AnsiConsole.WriteLine();
@@ -140,22 +152,63 @@ namespace PragueParking
 
         public static void UIFlytta(Parkeringshus garage)
         {
+            var regNr = AnsiConsole.Ask<string>("Ange registreringsnummer att flytta:").Trim().ToUpper();
 
+            ParkeringsPlats? gammalPlats = null;
+            Fordon? fordon = null;                  // Hitta fordonet i garaget
+
+            foreach (var plats in garage.Plats)
+            {
+                fordon = plats.ParkeradeFordon.FirstOrDefault(f => f.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
+                if (fordon != null)
+                {
+                    gammalPlats = plats;
+                    break;
+                }
+            }
+
+            if (fordon == null || gammalPlats == null)
+            {
+                AnsiConsole.MarkupLine("[red]Fordonet hittades inte i garaget.[/]");
+                return;
+            }
+
+
+            foreach (var plats in garage.Plats.OrderBy(p => p.platsNummer))
+            {
+
+                if (plats.FordonPåPlats(fordon))
+                {
+                    AnsiConsole.MarkupLine($"[green]{fordon.FordonsTyp}-{fordon.RegNr} tilldelades ny plats [bold]{plats.platsNummer}[/][/]");
+                    gammalPlats.ParkeradeFordon.Remove(fordon);
+                    return;
+                }
+
+               
+            }
+
+            gammalPlats.ParkeradeFordon.Add(fordon);
+            AnsiConsole.MarkupLine("[red]Ingen ledig plats hittades för flytt. Fordonet står kvar på sin gamla plats.[/]");
         }
+
 
         public static void UIHämta(Parkeringshus garage)
         {
             var regNr = AnsiConsole.Ask<string>("Ange registreringsnummer att hämta:").Trim().ToUpper();
+            DateTime uthämtning = DateTime.Now;
+
             foreach (var plats in garage.Plats)
             {
-                var f = plats.ParkeradeFordon.FirstOrDefault(x => x.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
-                if (f != null)
+                var Plats = plats.ParkeradeFordon.FirstOrDefault(x => x.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
+                if (Plats != null)
                 {
-                    int pris = Prislista.BeräknaPris(f, DateTime.Now);
-                    AnsiConsole.MarkupLine($"[green]{f.FordonsTyp} {regNr} utlämnad[/] från plats [bold]{plats.platsNummer}[/].");
-                    plats.ParkeradeFordon.Remove(f);
+                    int pris = Prislista.BeräknaPris(Plats, DateTime.Now);
+                    var tidTotalt = uthämtning - Plats.Incheckningstid;
+                    string tidText = $"{(int)tidTotalt.TotalMinutes} min";
+                    AnsiConsole.MarkupLine($"[green]{Plats.FordonsTyp} {regNr} utlämnad[/] från plats [bold]{plats.platsNummer}[/].");
+                    plats.ParkeradeFordon.Remove(Plats);
                     AnsiConsole.MarkupLine($"Pris att betala: [bold]{pris} kr[/]");
-
+                    AnsiConsole.MarkupLine($"Tid parkerad: {Plats.Incheckningstid} till {uthämtning}");
                     return;
                 }
             }
@@ -164,12 +217,31 @@ namespace PragueParking
 
         public static void UISök(Parkeringshus garage)
         {
+            var regNr = AnsiConsole.Ask<string>("Ange registreringsnummer för fordon du söker: ").Trim().ToUpper();
+            if (string.IsNullOrEmpty(regNr))
+                return;
 
+            bool hittad = false;
+
+            foreach (var plats in garage.Plats)
+            {
+                var fordon = plats.ParkeradeFordon.FirstOrDefault(x => x.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
+                if (fordon != null)
+                {
+                    AnsiConsole.MarkupLine($"[green]Fordonet {fordon.FordonsTyp} med regnr {fordon.RegNr} står på plats [bold]{plats.platsNummer}[/].[/]");
+                    hittad = true;
+                    break;
+                }
+            }
+            if (!hittad)
+            {
+                AnsiConsole.MarkupLine("[yellow]Fordonet hittades inte.[/]");
+            }
         }
 
         public static void VäntaOchRensa()
         {
-            AnsiConsole.MarkupLine("\n(Tryck valfri tangent för att fortsätta...)");
+            AnsiConsole.MarkupLine("\n(Tryck på valfri tangent för att fortsätta...)");
             Console.ReadKey(true);
             AnsiConsole.Clear();
         }

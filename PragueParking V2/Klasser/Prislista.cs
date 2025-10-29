@@ -16,8 +16,13 @@ namespace PragueParking_V2.Klasser
             if (tid.TotalMinutes <= 10)
                 return 0; // första 10 minuter gratis
 
-            double timmar = Math.Ceiling(tid.TotalHours);
-            return (int)timmar * prisPerTimme;
+            double minuter = Math.Ceiling(tid.TotalMinutes);
+
+            double prisPerMinut = prisPerTimme / 60.0;
+
+            int pris = (int)Math.Ceiling(minuter * prisPerMinut); // Nu räknas priset per minut efter 10 minuter
+
+            return pris;
         }
     }
 }

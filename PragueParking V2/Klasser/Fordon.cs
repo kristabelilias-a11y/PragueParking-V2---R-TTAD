@@ -11,7 +11,8 @@ namespace PragueParking_V2.Klasser
         public string RegNr { get; set; }
         public string FordonsTyp { get; set; }
 
-        public DateTime Incheckningstid { get; set; }
+        public int Storlek {  get; set; }
+        public DateTime Incheckningstid { get; set; } = DateTime.Now;
 
          public Fordon(string regNr)
         {

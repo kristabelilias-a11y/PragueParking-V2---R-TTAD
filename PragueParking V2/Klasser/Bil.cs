@@ -11,6 +11,7 @@ namespace PragueParking_V2.Klasser
         public Bil(string regNr) : base(regNr)
         {
             FordonsTyp = "BIL";
+            Storlek = 4;
         }
     }
 }

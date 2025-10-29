@@ -11,6 +11,7 @@ namespace PragueParking_V2.Klasser
         public MC(string regNr) : base(regNr)
         {
             FordonsTyp = "MC";
+            Storlek = 2;
         }
     }
 }
