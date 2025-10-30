@@ -1,0 +1,13 @@
+﻿{
+  "AntalPlatser": 100,
+  "Fordonstyper": [
+    {
+      "Typ": "Bil",
+      "MaxPerPlats": 1
+    },
+    {
+      "Typ": "MC",
+      "MaxPerPlats": 2
+    }
+  ]
+}

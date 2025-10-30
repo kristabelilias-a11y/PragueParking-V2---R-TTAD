@@ -1,9 +1,12 @@
-﻿using PragueParking_V2.Klasser;
+﻿using PragueParking_V2.Filer;
+using PragueParking_V2.Klasser;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 
 
@@ -15,7 +18,20 @@ namespace PragueParking
    
         static void Main(string[] args)
         {
-            var garage = SkapaStandardGarage(100);
+            DataAccess dataAccess = new DataAccess(); // Skapa datahanterare
+            Parkeringshus parkeringshus = dataAccess.LäsData(); // Läs in tidigare sparad data
+
+            PrisLista();
+            VäntaOchRensa();
+
+            if (parkeringshus.Plats == null || parkeringshus.Plats.Count == 0)
+            {
+                parkeringshus.Plats = new List<ParkeringsPlats>();
+                for (int i = 1; i <= 100; i++)
+                {
+                    parkeringshus.Plats.Add(new ParkeringsPlats { platsNummer = i });
+                }
+            }
 
             while (true)
             {
@@ -26,38 +42,49 @@ namespace PragueParking
                         .Title("[bold]Välkommen till Prague Parking\nVälj ett av följande alternativ:[/]")
 
                         .AddChoices(new[]
-                        { "1. Visa karta",
+                        { "Prislista",
+                          "1. Visa karta",
                           "2. Parkera fordon",
                           "3. Flytta fordon",
                           "4. Hämta fordon",
                           "5. Sök fordon",
-                          "6. Avsluta"
+                          "6. Avsluta",
                             }));
 
                 switch (val)
                 {
                     case "1. Visa karta":
-                        UIVisaKarta(garage);
+                        UIVisaKarta(parkeringshus);
                         VäntaOchRensa();
                         break;
                     case "2. Parkera fordon":
-                        UIParkera(garage);
+                        UIParkera(parkeringshus);
+                        dataAccess.SparaData(parkeringshus);
                         VäntaOchRensa();
                         break;
                     case "3. Flytta fordon":
-                        UIFlytta(garage);
+                        UIFlytta(parkeringshus);
+                        dataAccess.SparaData(parkeringshus);
                         VäntaOchRensa();
                         break;
                     case "4. Hämta fordon":
-                        UIHämta(garage);
+                        UIHämta(parkeringshus);
+                        dataAccess.SparaData(parkeringshus);
                         VäntaOchRensa();
                         break;
                     case "5. Sök fordon":
-                        UISök(garage);
+                        UISök(parkeringshus);
                         VäntaOchRensa();
                         break;
                     case "6. Avsluta":
+                        dataAccess.SparaData(parkeringshus);
+                        AnsiConsole.MarkupLine("Tack för besöket, välkommen åter!");
                         return;
+
+                    case "Prislista":
+                        PrisLista();
+                        VäntaOchRensa();
+                        break;
 
                     default:
                         AnsiConsole.MarkupLine("[red]Ogiltigt val.[/]");
@@ -90,7 +117,7 @@ namespace PragueParking
 
             return "red";
         }
-        public static void UIVisaKarta(Parkeringshus garage, int kolumner = 10)
+        public static void UIVisaKarta(Parkeringshus parkeringshus, int kolumner = 10)
 
         
         {
@@ -104,7 +131,7 @@ namespace PragueParking
             for (int c = 0; c < kolumner; c++)
                 table.AddColumn(new TableColumn($"[grey]{c + 1}[/]").Centered());
 
-            var platser = garage.Plats.OrderBy(p => p.platsNummer).ToList();
+            var platser = parkeringshus.Plats.OrderBy(p => p.platsNummer).ToList();
 
             for (int i = 0; i < platser.Count; i += kolumner)
             {
@@ -132,7 +159,7 @@ namespace PragueParking
             return;
         }
 
-        public static void UIParkera(Parkeringshus garage)
+        public static void UIParkera(Parkeringshus parkeringshus)
         {
             var typ = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
@@ -142,7 +169,7 @@ namespace PragueParking
 
             Fordon fordon = typ == "BIL" ? new Bil(regNr) : new MC(regNr);
 
-            if (garage.FörsökParkera(fordon, out var msg))
+            if (parkeringshus.FörsökParkera(fordon, out var msg))
                 AnsiConsole.MarkupLine($"[green]{msg}[/]");
             else
                 AnsiConsole.MarkupLine($"[red]{msg}[/]");
@@ -150,14 +177,14 @@ namespace PragueParking
             return;
         }
 
-        public static void UIFlytta(Parkeringshus garage)
+        public static void UIFlytta(Parkeringshus parkeringshus)
         {
             var regNr = AnsiConsole.Ask<string>("Ange registreringsnummer att flytta:").Trim().ToUpper();
 
             ParkeringsPlats? gammalPlats = null;
             Fordon? fordon = null;                  // Hitta fordonet i garaget
 
-            foreach (var plats in garage.Plats)
+            foreach (var plats in parkeringshus.Plats)
             {
                 fordon = plats.ParkeradeFordon.FirstOrDefault(f => f.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
                 if (fordon != null)
@@ -174,7 +201,7 @@ namespace PragueParking
             }
 
 
-            foreach (var plats in garage.Plats.OrderBy(p => p.platsNummer))
+            foreach (var plats in parkeringshus.Plats.OrderBy(p => p.platsNummer))
             {
 
                 if (plats.FordonPåPlats(fordon))
@@ -192,12 +219,12 @@ namespace PragueParking
         }
 
 
-        public static void UIHämta(Parkeringshus garage)
+        public static void UIHämta(Parkeringshus parkeringshus)
         {
             var regNr = AnsiConsole.Ask<string>("Ange registreringsnummer att hämta:").Trim().ToUpper();
             DateTime uthämtning = DateTime.Now;
 
-            foreach (var plats in garage.Plats)
+            foreach (var plats in parkeringshus.Plats)
             {
                 var Plats = plats.ParkeradeFordon.FirstOrDefault(x => x.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
                 if (Plats != null)
@@ -215,7 +242,7 @@ namespace PragueParking
             AnsiConsole.MarkupLine("[yellow]Fordonet hittades inte.[/]");
         }
 
-        public static void UISök(Parkeringshus garage)
+        public static void UISök(Parkeringshus parkeringshus)
         {
             var regNr = AnsiConsole.Ask<string>("Ange registreringsnummer för fordon du söker: ").Trim().ToUpper();
             if (string.IsNullOrEmpty(regNr))
@@ -223,7 +250,7 @@ namespace PragueParking
 
             bool hittad = false;
 
-            foreach (var plats in garage.Plats)
+            foreach (var plats in parkeringshus.Plats)
             {
                 var fordon = plats.ParkeradeFordon.FirstOrDefault(x => x.RegNr.Equals(regNr, StringComparison.OrdinalIgnoreCase));
                 if (fordon != null)
@@ -238,6 +265,43 @@ namespace PragueParking
                 AnsiConsole.MarkupLine("[yellow]Fordonet hittades inte.[/]");
             }
         }
+
+        public static void PrisLista()
+        {
+
+                try
+                {
+                string fileName = Path.Combine("Filer", "Prislista.txt");
+                string filePath = Path.Combine(AppContext.BaseDirectory, fileName); // Returnerar den mapp där programmet körs ifrån
+
+                if (File.Exists(filePath))
+                {
+                    string fileContents = File.ReadAllText(fileName);
+                    AnsiConsole.Write(new Panel(fileContents).Header("Prislista").Border(BoxBorder.Rounded).Padding(1, 1));
+                    return;
+
+                }
+                
+
+                if (!File.Exists("Prislista.txt"))
+                    {
+                        AnsiConsole.MarkupLine("[red]Prislista.txt hittades inte.[/]");
+                        return;
+                    }
+
+
+            }
+            catch (Exception ex)
+                {
+                    AnsiConsole.MarkupLine($"[red]Fel vid läsning av prislista: {Markup.Escape(ex.Message)}[/]");
+                }
+            
+        }
+
+
+            
+        
+            
 
         public static void VäntaOchRensa()
         {

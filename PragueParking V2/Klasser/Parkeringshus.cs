@@ -10,10 +10,11 @@ namespace PragueParking_V2.Klasser
     {
         public List<ParkeringsPlats> Plats { get; set; } = new List<ParkeringsPlats>(100);
 
-        internal static IEnumerable<object> OrderBy(Func<object, object> value)
-        {
-            throw new NotImplementedException();
-        }
+        public Parkeringshus() { }
+        //internal static IEnumerable<object> OrderBy(Func<object, object> value)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public bool FörsökParkera(Fordon fordon, out string meddelande)
         {
