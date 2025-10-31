@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PragueParking_V2.Klasser
+namespace PragueParking.Core
 {
     public class Bil : Fordon
     {
+        public Bil() : base()
+        {
+            FordonsTyp = "BIL";
+            Storlek = 4;
+        }
         public Bil(string regNr) : base(regNr)
         {
             FordonsTyp = "BIL";

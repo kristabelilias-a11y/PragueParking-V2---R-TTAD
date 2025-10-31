@@ -1,0 +1,620 @@
+{
+  "Plats": [
+    {
+      "platsNummer": 1,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [
+        {
+          "$type": "Bil",
+          "RegNr": "M",
+          "FordonsTyp": "BIL",
+          "Storlek": 4,
+          "Incheckningstid": "2025-10-31T20:50:09.5933199+01:00"
+        }
+      ],
+      "UpptagenYta": 4
+    },
+    {
+      "platsNummer": 2,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 3,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [
+        {
+          "$type": "Bil",
+          "RegNr": "N",
+          "FordonsTyp": "BIL",
+          "Storlek": 4,
+          "Incheckningstid": "2025-10-31T20:50:13.3576181+01:00"
+        }
+      ],
+      "UpptagenYta": 4
+    },
+    {
+      "platsNummer": 4,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 5,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 6,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 7,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 8,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 9,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 10,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 11,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 12,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 13,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 14,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 15,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 16,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 17,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 18,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 19,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 20,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 21,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 22,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 23,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 24,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 25,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 26,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 27,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 28,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 29,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 30,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 31,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 32,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 33,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 34,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 35,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 36,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 37,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 38,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 39,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 40,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 41,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 42,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 43,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 44,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 45,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 46,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 47,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 48,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 49,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 50,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 51,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 52,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 53,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 54,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 55,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 56,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 57,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 58,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 59,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 60,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 61,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 62,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 63,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 64,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 65,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 66,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 67,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 68,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 69,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 70,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 71,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 72,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 73,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 74,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 75,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 76,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 77,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 78,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 79,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 80,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 81,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 82,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 83,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 84,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 85,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 86,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 87,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 88,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 89,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 90,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 91,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 92,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 93,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 94,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 95,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 96,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 97,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 98,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 99,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    },
+    {
+      "platsNummer": 100,
+      "MaxStorlek": 4,
+      "ParkeradeFordon": [],
+      "UpptagenYta": 0
+    }
+  ]
+}

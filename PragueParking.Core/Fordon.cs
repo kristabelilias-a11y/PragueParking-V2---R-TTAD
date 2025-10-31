@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
-namespace PragueParking_V2.Klasser
+namespace PragueParking.Core
 {
+    [JsonDerivedType(typeof(Bil), "Bil")]
+    [JsonDerivedType(typeof(MC), "MC")] // talar om för JSON filen vad underklassen är
     public class Fordon
+    
     {
-        public string RegNr { get; set; }
-        public string FordonsTyp { get; set; }
+        public Fordon() { }
+        public string RegNr { get; set; } = string.Empty;
+        public string FordonsTyp { get; set; } = string.Empty;  
 
         public int Storlek {  get; set; }
         public DateTime Incheckningstid { get; set; } = DateTime.Now;

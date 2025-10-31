@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PragueParking_V2.Klasser
+namespace PragueParking.Core
 {
     public class ParkeringsPlats
     {
@@ -20,7 +20,7 @@ namespace PragueParking_V2.Klasser
         {
             if (fordon is Bil)
             {
-                if (ParkeradeFordon.Count == 0 && (UpptagenYta + fordon.Storlek <= MaxStorlek)) 
+                if (ParkeradeFordon.Count == 0 && UpptagenYta + fordon.Storlek <= MaxStorlek) 
                 {
                     ParkeradeFordon.Add(fordon);
                     return true;

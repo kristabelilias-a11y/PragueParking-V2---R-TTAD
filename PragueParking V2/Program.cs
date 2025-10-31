@@ -1,5 +1,6 @@
-﻿using PragueParking_V2.Filer;
-using PragueParking_V2.Klasser;
+﻿
+using PragueParking.Data;
+using PragueParking.Core;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 using System;
@@ -8,6 +9,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using PragueParking_V2;
 
 
 namespace PragueParking
@@ -20,6 +22,8 @@ namespace PragueParking
         {
             DataAccess dataAccess = new DataAccess(); // Skapa datahanterare
             Parkeringshus parkeringshus = dataAccess.LäsData(); // Läs in tidigare sparad data
+            var konfig = KonfigurationsHantere.LäsInKonfig();
+
 
             PrisLista();
             VäntaOchRensa();
@@ -96,14 +100,6 @@ namespace PragueParking
         }
 
         
-
-        static Parkeringshus SkapaStandardGarage(int antal = 100)
-        {
-            var g = new Parkeringshus();
-            for (int i = 1; i <= antal; i++)
-                g.Plats.Add(new ParkeringsPlats { platsNummer = i });
-            return g;
-        }
 
         static string HämtaFärg(ParkeringsPlats plats)
         {
@@ -200,21 +196,24 @@ namespace PragueParking
                 return;
             }
 
+            gammalPlats.ParkeradeFordon.Remove(fordon);
 
             foreach (var plats in parkeringshus.Plats.OrderBy(p => p.platsNummer))
             {
+                if (plats == gammalPlats)
+                    continue; // hoppa över sin gamla plats
 
                 if (plats.FordonPåPlats(fordon))
                 {
                     AnsiConsole.MarkupLine($"[green]{fordon.FordonsTyp}-{fordon.RegNr} tilldelades ny plats [bold]{plats.platsNummer}[/][/]");
-                    gammalPlats.ParkeradeFordon.Remove(fordon);
+                    
                     return;
                 }
 
                
             }
 
-            gammalPlats.ParkeradeFordon.Add(fordon);
+            gammalPlats.ParkeradeFordon.Add(fordon); // Om ingen ny plats hittas, lägg tillbaka fordonet
             AnsiConsole.MarkupLine("[red]Ingen ledig plats hittades för flytt. Fordonet står kvar på sin gamla plats.[/]");
         }
 
@@ -234,10 +233,13 @@ namespace PragueParking
                     string tidText = $"{(int)tidTotalt.TotalMinutes} min";
                     AnsiConsole.MarkupLine($"[green]{Plats.FordonsTyp} {regNr} utlämnad[/] från plats [bold]{plats.platsNummer}[/].");
                     plats.ParkeradeFordon.Remove(Plats);
+
                     AnsiConsole.MarkupLine($"Pris att betala: [bold]{pris} kr[/]");
                     AnsiConsole.MarkupLine($"Tid parkerad: {Plats.Incheckningstid} till {uthämtning}");
                     return;
                 }
+
+
             }
             AnsiConsole.MarkupLine("[yellow]Fordonet hittades inte.[/]");
         }
@@ -271,7 +273,7 @@ namespace PragueParking
 
                 try
                 {
-                string fileName = Path.Combine("Filer", "Prislista.txt");
+                string fileName = Path.Combine("Prislista.txt");
                 string filePath = Path.Combine(AppContext.BaseDirectory, fileName); // Returnerar den mapp där programmet körs ifrån
 
                 if (File.Exists(filePath))

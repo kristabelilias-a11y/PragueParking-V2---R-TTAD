@@ -4,13 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PragueParking_V2.Klasser
+namespace PragueParking.Core
 {
     public class Parkeringshus
     {
-        public List<ParkeringsPlats> Plats { get; set; } = new List<ParkeringsPlats>(100);
+        public List<ParkeringsPlats> Plats { get; set; } =  new List<ParkeringsPlats> { };
 
-        public Parkeringshus() { }
+        public Parkeringshus(int antalPlatser = 100)
+        {
+            for (int i = 1; i <= antalPlatser; i++)
+            {
+                Plats.Add(new ParkeringsPlats { platsNummer = i });
+            }
+        }
+
+        public Parkeringshus() : this(100) { }
+
+      
         //internal static IEnumerable<object> OrderBy(Func<object, object> value)
         //{
         //    throw new NotImplementedException();
@@ -54,5 +64,6 @@ namespace PragueParking_V2.Klasser
             meddelande = "\nIngen lämplig plats hittades just nu.";
             return false;
         }
+
     }
 }
